@@ -12,8 +12,7 @@ Proje:Student Management System
    -3-öğrenci:id,name,lastname,city,age özelliklerine sahiptir.
 */
     public static void main(String[] args) {
-      StudentService service=new StudentService();
-      service.createStudentTable();
+       createStudentTable();
         start();
 
     }

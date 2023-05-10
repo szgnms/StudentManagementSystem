@@ -5,6 +5,11 @@ import java.sql.SQLException;
 
 public class Methods extends Depot {
 
+    public static void createStudentTable(){
+        Repo repo =new Repo();
+        repo.createTable();
+    }
+
     public static void start() {
 
 
