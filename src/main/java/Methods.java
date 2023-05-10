@@ -30,10 +30,14 @@ public class Methods extends Depot {
             case "4":
                 deleteStudent();
             case "5":
-                System.exit(0);
+                exitProg();
             default:
-                System.out.println("please select correct");
-                start();
+                while (count<4) {
+                    System.out.println("please select correct");
+                    count++;
+                    start();
+                }
+                 exitMenu();
 
         }
 
@@ -48,9 +52,9 @@ public class Methods extends Depot {
             st.execute("delete from t_student where id=" + select);
         } catch (SQLException e) {
             System.out.println("please select correct id for delete");
-        } finally {
-            deleteStudent();
         }
+
+        selectDeleteMenu();
 
 
     }
@@ -102,11 +106,110 @@ public class Methods extends Depot {
     }
 
     private static void updateStudent() {
+        selectStudent();
+        System.out.println("Please enter id of student");
+        select = scan.next();
+        System.out.println("""
+                1-change Name
+                2-change LastName
+                3-change City
+                4-change Age
+                5-Main Menu
+                """);
+        String change = scan.next();
+        switch (change) {
+            case "1":
+                changeName(select);
+            case "2":
+                changeLastName(select);
+            case "3":
+                changeCity(select);
+            case "4":
+                changeAge(select);
+            case "5":
+                start();
+            default:
+                System.out.println("Please enter correct");
+                redirectMenu();
+                start();
+
+
+        }
+
 
     }
 
+
+
+
+    private static void changeAge(String select) {
+        System.out.println("please enter age");
+        String age = scan.next();
+        String query = "update t_student set age =?  where id= ?";
+        try {
+            prst = conn.prepareStatement(query);
+            prst.setInt(1, Integer.parseInt(age));
+            prst.setInt(2, Integer.parseInt(select));
+            prst.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        updateStudent();
+    }
+
+    private static void changeCity(String select) {
+        System.out.println("please enter ciyt");
+        String city = scan.next();
+        String query = "update t_student set city =?  where id= ?";
+        try {
+            prst = conn.prepareStatement(query);
+            prst.setString(1, city);
+            prst.setInt(2, Integer.parseInt(select));
+            prst.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        updateStudent();
+    }
+
+    private static void changeLastName(String select) {
+        System.out.println("please enter LastName");
+        String lastName = scan.next();
+        String query = "update t_student set lastname =?  where id= ?";
+        try {
+            prst = conn.prepareStatement(query);
+            prst.setString(1, lastName);
+            prst.setInt(2, Integer.parseInt(select));
+            prst.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        updateStudent();
+    }
+
+    private static void changeName(String select) {
+        System.out.println("please enter name");
+        String name = scan.next();
+        String query = "update t_student set name =?  where id= ?";
+        try {
+            prst = conn.prepareStatement(query);
+            prst.setString(1, name);
+            prst.setInt(2, Integer.parseInt(select));
+            prst.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        updateStudent();
+
+
+    }
+
+
     private static void listAllStudent() {
         selectStudent();
+        start();
     }
 
     private static void registerStudent() {
@@ -144,6 +247,85 @@ public class Methods extends Depot {
             throw new RuntimeException(e);
         }
 
+        selectRegisterMenu();
+    }
+
+    private static void selectRegisterMenu() {
+        System.out.println("""
+                Please select
+                1-Add  student
+                2-return menu
+                """);
+        select = scan.next();
+        switch (select) {
+            case "1":
+                registerStudent();
+            case "2":
+                start();
+            default:
+                System.out.println("please select correct\n redirecting to Menu");
+                redirectMenu();
+                start();
+        }
+    }
+
+    private static void selectDeleteMenu() {
+        System.out.println("""
+                Please select
+                1-Delete  student
+                2-return menu
+                """);
+        select = scan.next();
+        switch (select) {
+            case "1":
+                deleteStudent();
+            case "2":
+                start();
+            default:
+                System.out.println("please select correct\n redirecting to Menu");
+                redirectMenu();
+                start();
+        }
+    }
+
+    private static void redirectMenu() {
+        for (int i = 0; i < 3; i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.print(".");
+        }
+        System.out.println();
+    }
+
+    private static void exitMenu() {
+        System.out.println("entered wrong 3 times \n program is closed");
+        for (int i = 0; i < 3; i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.print(".");
+        }
+        System.out.println();
+        System.exit(0);
+    }
+
+    private static void exitProg() {
+        System.out.println("program is closed");
+        for (int i = 0; i < 3; i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.print(".");
+        }
+        System.out.println();
+        System.exit(0);
     }
 
     public static int getStudentId() {

@@ -6,4 +6,5 @@ public class Depot extends Repo {
     static String select;
     static int student_id;
     static PreparedStatement prst;
+    static int count;
 }
