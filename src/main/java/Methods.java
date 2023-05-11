@@ -192,7 +192,7 @@ public class Methods extends Depot {
     }
 
     private static void changeCity(String select) {
-        System.out.println("please enter ciyt");
+        System.out.println("please enter city");
         String city = scan.next();
         String query = "update t_student set city =?  where id= ?";
         try {
