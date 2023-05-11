@@ -1,5 +1,4 @@
-import java.awt.event.WindowStateListener;
-import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -13,9 +12,10 @@ public class Methods extends Depot {
     public static void start() {
 
 
-        System.out.println("============================================\n" +
-                "STUDENT MANAGEMENT SYSTEM\n" +
-                "============================================");
+        System.out.println("""
+                ============================================
+                STUDENT MANAGEMENT SYSTEM
+                ============================================""");
         System.out.println("""
                 Please Select
                 1-Register Student
@@ -144,7 +144,36 @@ public class Methods extends Depot {
 
     }
 
+    private static void updateStudentIn() {
+        System.out.println("""
+                1-change Name
+                2-change LastName
+                3-change City
+                4-change Age
+                5-Main Menu
+                """);
+        String change = scan.next();
+        switch (change) {
+            case "1":
+                changeName(select);
+            case "2":
+                changeLastName(select);
+            case "3":
+                changeCity(select);
+            case "4":
+                changeAge(select);
+            case "5":
+                start();
+            default:
+                System.out.println("Please enter correct");
+                redirectMenu();
+                start();
 
+
+        }
+
+
+    }
 
 
     private static void changeAge(String select) {
@@ -159,7 +188,7 @@ public class Methods extends Depot {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        updateStudent();
+         updateStudentIn();
     }
 
     private static void changeCity(String select) {
@@ -175,7 +204,7 @@ public class Methods extends Depot {
             throw new RuntimeException(e);
         }
 
-        updateStudent();
+        updateStudentIn();
     }
 
     private static void changeLastName(String select) {
@@ -190,7 +219,7 @@ public class Methods extends Depot {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        updateStudent();
+        updateStudentIn();
     }
 
     private static void changeName(String select) {
@@ -206,7 +235,7 @@ public class Methods extends Depot {
             throw new RuntimeException(e);
         }
 
-        updateStudent();
+        updateStudentIn();
 
 
     }
@@ -333,11 +362,5 @@ public class Methods extends Depot {
         System.exit(0);
     }
 
-    public static int getStudentId() {
-        System.out.println("Enter Student Id");
-        student_id = scan.nextInt();
-        scan.nextLine();
-        return student_id;
-    }
 
 }
